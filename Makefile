@@ -1,11 +1,13 @@
 # Main Dada Engine makefile
 
 
-all:	pb
+all:	pb dada
 
-pb:	bin/pb
+dada:	bin/
+	cp dada.sh bin/dada
+	chmod +x bin/dada
 
-bin/pb:	bin/ src/pb
+pb:	bin/ src/pb
 	mv src/pb bin/pb
 
 bin/:
@@ -15,5 +17,6 @@ src/pb:
 	$(MAKE) -C src
 
 clean:
+	( cd pydada; rm -f *.pyc )
 	( cd src ; make clean )
 

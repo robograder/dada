@@ -2,3 +2,10 @@
 
 # yacc
 *.yy.c
+
+*.a
+
+bin/
+
+*.pyc
+*.pyo
