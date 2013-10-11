@@ -8,10 +8,10 @@
 
 // if we're using troff, we want two columns
 
-#define TROFF_2COLUMN
+{% set TROFF_2COLUMN = True %}
 
-#include <stdmap.pbi>
-#include <format.pbi>
+{% load "stdmap.pbi" %}
+{% load "format.pbi" %}
 
 // global variables used:
 //  v-citable			name of artist who is cited throughout text

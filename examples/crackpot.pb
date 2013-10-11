@@ -13,8 +13,8 @@
 
 Start: S;
 
-#include <stdmap.pbi>
-#include <format.pbi>
+{% load "stdmap.pbi" %}
+{% load "format.pbi" %}
 
 // rules
 
