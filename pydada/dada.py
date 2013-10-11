@@ -1,30 +1,39 @@
 import sys
 import subprocess
 
-# pipes passed script
-# assumes a lot - this is POC
+import preprocess
 
 PB_BINARY = 'bin/pb'
-CPP_BINARY = 'cpp'
 
-args = sys.argv[1:]
+def call_pb(grammar_string, args=[]):
+    pb_call = [
+        PB_BINARY,
+    ] + args
 
-script, rest = args[0], args[1:]
+    pb = subprocess.Popen(pb_call, stdin=subprocess.PIPE)
+    pb.stdin.write(grammar_string)
+    pb.stdin.close()
 
-cpp_call = [
-  CPP_BINARY,
-  '-I',
-  './include',
-  script
-]
+    pb.wait()
 
-pb_call = [
-  PB_BINARY,
-] + rest
+if __name__ == "__main__":
+    import argparse
 
-cpp = subprocess.Popen(cpp_call, stdout=subprocess.PIPE)
-pb = subprocess.Popen(pb_call, stdin=cpp.stdout)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('filename', help="Filename to preprocess")
+    parser.add_argument('-j', '--json-data', help="Json file containing data to render")
+    parser.add_argument('-I', '--include-dir', action='append', dest='include_dirs', help="directories to search", default=[])
 
-cpp.wait()
-pb.wait()
+    args = parser.parse_args()
+
+    if args.json_data:
+        # let this blow up for now
+        f = open(args.json_data)
+        data = json.load(f)
+        f.close()
+    else:
+        data = None
+
+    grammar = preprocess.preprocess(args.filename, data, args.include_dirs)
+    call_pb(grammar)
 
