@@ -30,7 +30,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('filename', help="Filename to preprocess")
     parser.add_argument('-j', '--json-data', help="Json file containing data to render")
-    parser.add_argument('-I', '--include-dir', action='append', dest='include_dirs', default=[])
+    parser.add_argument('-I', '--include-dir', action='append', dest='include_dirs', help="directories to search", default=[])
 
     args = parser.parse_args()
 

@@ -60,8 +60,8 @@ class LoadExtension(Extension):
         self.environment._loaded_files.add(import_as)
 
         # build the nodes
-        import_node = jinja2.nodes.Import(template, import_as, True) # template, target, with_context
-        include_node = jinja2.nodes.Include(template, True, False) # template, with_cotext, ignore_missing
+        import_node = jinja2.nodes.Import(template, import_as, True).set_lineno(lineno) # template, target, with_context
+        include_node = jinja2.nodes.Include(template, True, False).set_lineno(lineno) # template, with_cotext, ignore_missing
 
         if already_included:
             return import_node
