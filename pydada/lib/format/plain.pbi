@@ -1,10 +1,7 @@
 // plain.pbi  acb  13-7-1995
 // Definitions for plain-text output for the Dada Engine.
 
-#ifndef __PLAIN_PBI
-#define __PLAIN_PBI
-
-#include <stdmap.pbi>
+{% load "stdmap.pbi" %}
 
 // PROLOGUE: format-specific prologue
 
@@ -56,14 +53,12 @@ FOOTNOTE(text): ?tx=text // the inline-code parameter bug^H^H^Hfeature.
 %resource PBRK: "\n\n";
 
 // ************************************************************************
-//
+
 // Text styles and the like
-//
+
 // ************************************************************************
 
 // here, text styles aren't really used.
 
 BOLD(foo): foo ;
 ITALIC(foo): foo ;
-
-#endif

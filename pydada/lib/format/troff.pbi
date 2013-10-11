@@ -2,10 +2,8 @@
 // Definitions for UNIX (n|t|dit)roff typesetting system output
 // (with the ms macro package)
 
-#ifndef __TROFF_PBI
-#define __TROFF_PBI
 
-#include <stdmap.pbi>
+{% load "stdmap.pbi" %}
 
 // PROLOGUE: format-specific prologue
 // we don't want an abstract in our output
@@ -21,9 +19,9 @@
 // BODY: called when body text is to start
 
 %resource BODY: "\n.AB\n.AE\n"
-#ifdef TROFF_2COLUMN
+{% if TROFF_2COLUMN is defined %}
 ".2C\n"
-#endif
+{% endif %}
 ;
 
 // TITLE(t): generates code at start of output for title
@@ -59,12 +57,11 @@ FOOTNOTE(text): { TROFF_footnote_num = TROFF_footnote_num+1 }
 %resource PBRK: "\n.PP\n" ;
 
 // ************************************************************************
-//
+
 // Text styles and the like
-//
+
 // ************************************************************************
 
 BOLD(foo): "\\fB" foo "\\fR" ;
 ITALIC(foo): "\\fI" foo "\\fR" ;
 
-#endif
