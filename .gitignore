@@ -9,3 +9,6 @@ bin/
 
 *.pyc
 *.pyo
+
+#virtual env
+env
