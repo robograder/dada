@@ -2,7 +2,7 @@
 #  directories where things are installed go below
 
 CC	= gcc
-YACC	= byacc
+YACC	= yacc
 LEX	= lex
 RANLIB	= ranlib
 
@@ -25,7 +25,7 @@ pb:	$(PB_OBJS) libpb.a
 #pbc:	$(PBC_OBJS)
 #	$(CC) -o pbc $(PBC_OBJS)
 
-pb.o:	pb.c rtn.h check.h map.h transform.h
+pb.o:	pb.c rtn.h check.h map.h transform.h resolve.h
 
 emit_ps.o:	emit_ps.c rtn.h map.h transform.h
 

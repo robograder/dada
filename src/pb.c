@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "rtn.h"
+#include "resolve.h"
 #include "check.h"
 #include "map.h"
 #include "transform.h"
