@@ -4,6 +4,7 @@
 *.yy.c
 
 y.tab.*
+y.output
 
 *.a
 
