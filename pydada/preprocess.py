@@ -16,7 +16,7 @@ def preprocess(filename, data=None, load_paths=None):
     # figure out our search paths
     basedir = os.path.dirname(os.path.realpath(__file__))
     lib_path = os.path.join(basedir, 'lib')
-    paths = [lib_path] + [os.getcwd()] + [os.path.abspath(p) for p in load_paths]
+    paths = [lib_path] + [os.getcwd()] + ['/'] + [os.path.abspath(p) for p in load_paths]
 
     loader = jinja2.FileSystemLoader(paths)
     env = jinja2.Environment(loader=loader, extensions=[load_extension.LoadExtension])

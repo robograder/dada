@@ -1,9 +1,10 @@
+import os
 import sys
 import subprocess
 
 import preprocess
 
-PB_BINARY = 'bin/pb'
+PB_BINARY = os.environ['PB_EXECUTABLE_PATH']
 
 def call_pb(grammar_string, args=[]):
     pb_call = [
@@ -24,7 +25,7 @@ if __name__ == "__main__":
     parser.add_argument('-j', '--json-data', help="Json file containing data to render")
     parser.add_argument('-I', '--include-dir', action='append', dest='include_dirs', help="directories to search", default=[])
 
-    args = parser.parse_args()
+    args, leftover = parser.parse_known_args()
 
     if args.json_data:
         # let this blow up for now
@@ -35,5 +36,5 @@ if __name__ == "__main__":
         data = None
 
     grammar = preprocess.preprocess(args.filename, data, args.include_dirs)
-    call_pb(grammar)
+    call_pb(grammar, leftover)
 

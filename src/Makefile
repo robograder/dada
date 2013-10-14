@@ -11,11 +11,7 @@ LIBPB_OBJS = check.o dict.o dstring.o dump.o machine.o map.o ptrlist.o \
 	resolve.o resstack.o rtn.o strfunc.o transform.o variables.o
 
 PB_OBJS	= pb.o y.tab.o lex.yy.o wrap.o
-#PBC_OBJS =  pbc.o y.tab.o lex.yy.o rtn.o strfunc.o dstring.o check.o map.o \
-#	 ptrlist.o variables.o transform.o machine.o ${REGEX} ${EXTRAOBJS} \
-#	emit_ps.o resolve.o dump.o
-#CFLAGS	= -g ${INCDIRS} ${DEFINES}
-CFLAGS	= -g  ${DEFINES}
+CFLAGS	= -g -Wall
 
 all:	pb
 

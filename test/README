@@ -1,0 +1,5 @@
+Some basic integration tests that run against the dada / pb command line interface
+
+basically, runs dada / pb with specific inputs and seed and asserts
+that we get back what we want
+
