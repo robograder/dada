@@ -108,24 +108,7 @@ extern void use_rtn(pRule rtn);
 
 %%
 
-input: rules { use_rtn($1);
-  /* if(dump_rtn) { 
-                 dump_rules($1); 
-		 dump_mappings(mappings); 
-		 dump_transformations(transformations);
-	       }
-	       check_rtn($1);
-               rule_base = $1;
-	       if(start_symbol) {
-		 initial_rule=rule_find($1, start_symbol);
-		 if(!initial_rule) {
-		   fprintf(stderr, "rule \"%s\" does not exist.\n", 
-			   start_symbol);
-		   exit(1);
-		 };
-	       };
-	       if(!inhibit) fprintf(outfile, "%s\n", 
-				    resolve_rule($1, initial_rule)); */}
+input: rules { use_rtn($1);}
 ;
 
 rules: /* mu */ { $$ = NULL; }
@@ -299,39 +282,3 @@ yyerror(char *s)
 {
   fprintf(stderr, "%s:%i: %s\n", cur_file, cur_line, s);
 };
-
-#if 0
-
-int strtoseed(char *s)
-{
-    int r=0;
-    if(atoi(s))return atoi(s);
-    while(*s) { r+=*(s++); }
-    return r;
-};
-
-main(int argc, char *argv[])
-{
-  int i;
-
-  char *rseed=NULL; /* a random seed, in string form */
-
-  for(i=1; i<argc; i++) {
-    if(*(argv[i])=='-')
-      switch(argv[i][1]) {
-      case 'd': dump_rtn = 1;
-      case 'i': inhibit = 1; break;
-      case 'o': outfile=fopen(argv[++i], "w"); break;
-      case 'p': old_probability=1; break;
-      case 'r': rseed = argv[++i]; break;
-      case 's': start_symbol = argv[++i]; break;
-      case 't': trace=1; break;
-      case 'v': verbose = 1; break;
-      case 'y': yydebug=1; break;
-      };
-  };
-  srandom(rseed?strtoseed(rseed):time(NULL));
-  yyparse();
-};
-
-#endif
