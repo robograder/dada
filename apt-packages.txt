@@ -1,1 +1,3 @@
 python-jinja2
+byacc
+flex
