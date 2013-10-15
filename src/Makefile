@@ -20,7 +20,7 @@ libpb.a:	$(LIBPB_OBJS)
 	$(RANLIB) libpb.a
 
 pb:	$(PB_OBJS) libpb.a
-	$(CC) -o pb ${PB_OBJS} -L. -lpb   
+	$(CC) ${CFLAGS} -o pb ${PB_OBJS} -L. -lpb
 
 #pbc:	$(PBC_OBJS)
 #	$(CC) -o pbc $(PBC_OBJS)
