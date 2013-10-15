@@ -49,7 +49,7 @@ static inline char *resolve_atom(pNode atom, pRule rules, pListNode formal, pLis
   char *result=NULL; /* for star and plus */
   int i;
 
-  if(trace) printf("Resolving atom: type = %d, data = \"%s\"\n",
+  if(trace) fprintf(stderr, "Resolving atom: type = %d, data = \"%s\"\n",
 		   atom->type, atom->data);
   switch(atom->type) {
   case literal:
@@ -134,11 +134,11 @@ static inline char *resolve_atom(pNode atom, pRule rules, pListNode formal, pLis
       pOption options=(pOption)atom->data;
       int num_options = option_length(options);
 
-      if (trace) printf("last choice: %i\n", atom->last_choice);
+      if (trace) fprintf(stderr, "last choice: %i\n", atom->last_choice);
       do {
 	  choice = random()%num_options;
       } while ((choice==atom->last_choice) && (num_options>1));
-      if(trace) printf("inline choice: choose %i/%i\n", choice, num_options);
+      if(trace) fprintf(stderr, "inline choice: choose %i/%i\n", choice, num_options);
       atom->last_choice = choice;
       return resolve_option(rules, option_nth(options, choice), 
 			    formal, cooked);
@@ -267,7 +267,7 @@ static char *_resolve_rule(pRule rules, pRule rule, pNode param,
     int num_options = option_length(rule->options);
     int choice;
 
-    if(trace) printf("Resolving rule <%s>\n", rule->symbol);
+    if(trace) fprintf(stderr, "Resolving rule <%s>\n", rule->symbol);
 
     /* make the choice */
 
@@ -276,7 +276,7 @@ static char *_resolve_rule(pRule rules, pRule rule, pNode param,
 				     mode), rule->params, cooked);
 
     list_free(cooked, free_car_destructor);
-    if(trace) printf("resolve_option returned \"%s\"\n", r);
+    if(trace) fprintf(stderr, "resolve_option returned \"%s\"\n", r);
     return r;
   } else return NULL;
 };
