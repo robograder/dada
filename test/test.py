@@ -50,6 +50,7 @@ for fp in os.listdir(full_inputs_dir):
             content = ef.read()
             if not content.strip() == res.strip():
                 print "FAILED: does not match"
+                print content
                 statusi[test_name] = False 
             else:
                 print 'OK!'
