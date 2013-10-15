@@ -30,7 +30,9 @@ class PBWrapper(object):
         )
 
         stdout, stderr, retcode = self._call(grammar, args)
-        if retcode != 0:
+        if retcode == -11: # segfault!
+            raise PBException('Segmentation Fault! Args: %s' % ' '.join(args))
+        elif retcode != 0:
             raise PBException(stderr)
         else:
             map(logger, [e for e in (ln.strip() for ln in stderr.split('\n')) if e])
