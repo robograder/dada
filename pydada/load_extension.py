@@ -3,6 +3,8 @@ import os.path
 import jinja2
 from jinja2.ext import Extension
 
+from logger import logger
+
 class LoadExtension(Extension):
     """
     Extension that creates tag 'load' that implements c INCLUDE-like behavior
@@ -63,6 +65,7 @@ class LoadExtension(Extension):
         import_node = jinja2.nodes.Import(template, import_as, True).set_lineno(lineno) # template, target, with_context
         include_node = jinja2.nodes.Include(template, True, False).set_lineno(lineno) # template, with_cotext, ignore_missing
 
+        logger("Including template %s using LOAD at line %d" % (import_as, lineno))
         if already_included:
             return import_node
         else:
