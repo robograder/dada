@@ -6,6 +6,7 @@ import os.path
 import jinja2
 
 import load_extension
+import jinja_utils
 from logger import logger
 
 
@@ -22,6 +23,7 @@ def preprocess(filename, data=None, load_paths=None):
 
     loader = jinja2.FileSystemLoader(paths)
     env = jinja2.Environment(loader=loader, extensions=[load_extension.LoadExtension])
+    env.globals['pb_word_list'] = jinja_utils.pb_word_list
     tem = env.get_template(filename)
 
     return tem.render(data)
