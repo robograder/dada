@@ -2,12 +2,20 @@
 
 all:	pb dada
 
-dada:	bin/
+.PHONY: pb dada release
+pb:	bin/pb
+dada:	bin/dada
+
+release:
+	$(MAKE) -C src y.tab.c
+	$(MAKE) -C src lex.yy.c
+
+bin/dada:	bin/
 	cat dada.sh | sed "s#CWD#${CURDIR}#" | sed "s#BINDIR#${CURDIR}/bin#" > bin/dada
 	chmod +x bin/dada
 
-pb:	bin/ src/pb
-	mv src/pb bin/pb
+bin/pb:	bin/ src/pb
+	cp src/pb bin/pb
 
 bin/:
 	mkdir -p bin
@@ -17,10 +25,12 @@ src/pb:
 
 clean:
 	( cd pydada; rm -f *.pyc )
-	( cd src ; make clean )
+	$(MAKE) -C src clean
+	rm -f bin/*
+
 
 .PHONY: test
-test:
+test: bin/dada pb
 	python test/test.py bin/dada
 
 INSTALL_DIR=/usr/local/bin
