@@ -3,6 +3,8 @@
 
 y.output
 
+src/pb
+
 *.a
 
 bin/
