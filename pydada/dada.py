@@ -24,7 +24,7 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--verbose', action='store_true', default=False, help="Makes verbose output appear on stderr")
 
     preprocessor_args = parser.add_argument_group('preprocessor')
-    preprocessor_args.add_argument('-j', '--json-data', help="Json file containing data to render")
+    preprocessor_args.add_argument('-j', '--json-data', help="Json file containing data to render (-) for stdin")
     preprocessor_args.add_argument('-I', '--include-dir', action='append', dest='include_dirs', help="directories to search", default=[])
     preprocessor_args.add_argument('-p', '--preprocess-only', action='store_true', default=False, help='only preprocess')
 
@@ -43,14 +43,18 @@ if __name__ == "__main__":
 
     if args.json_data:
         # let this blow up for now
-        logger('Loading data for template from file %s' % args.json_data)
 
-        try:
-            f = open(args.json_data)
-            data = json.load(f)
-            f.close()
-        except IOError as e:
-            fatal("Unable to open data file: %s" % str(e))
+        if args.json_data == '-':
+            logger('Loading data for template from STDIN')
+            data = json.load(sys.stdin)
+        else:
+            logger('Loading data for template from file %s' % args.json_data)
+            try:
+                f = open(args.json_data)
+                data = json.load(f)
+                f.close()
+            except IOError as e:
+                fatal("Unable to open data file: %s" % str(e))
     else:
         data = None
 
